@@ -1,6 +1,6 @@
 name: qt-framework
 base: core22
-version: git
+version: bundle
 summary: Qt Framework
 description: |
   Qt is a cross-platform application development framework widely used
@@ -10,21 +10,26 @@ description: |
 grade: devel
 confinement: strict
 
+slots:
+    qt-framework:
+      interface: content
+      read:
+        - /
+
 parts:
-  build-deps:
+  qt-sdk:
     plugin: nil
-    build-packages:
-      # ALL
-      - python3-minimal
-      - libclang-dev
-      - libgl1-mesa-dev
-      - libglu1-mesa-dev
-      - ninja-build
-  qt-6-5:
-    after: [build-deps]
-    plugin: cmake
-    source: https://code.qt.io/qt/qt5.git
-    source-tag: v6.5.1
-    cmake-parameters:
-      - -DCMAKE_BUILD_TYPE=Release
-      - -DCMAKE_INSTALL_PREFIX=usr/include/$CRAFT_ARCH_TRIPLET/$CRAFT_PART_NAME
+    stage-snaps: [qt-framework-sdk/latest/edge]
+    override-prime: |
+      set -eux
+      craftctl default
+      cd $CRAFT_PRIME/opt
+      find . -type f,l -name "*.so*" -exec bash -c "rm -f {}*" \;
+  command-chain:
+    source: https://github.com/jardon/snapcraft-desktop-integration.git
+    source-type: git
+    source-branch: qt-framework
+    source-subdir: qt-framework
+    plugin: make
+    make-parameters:
+      - PLATFORM_PLUG=$SNAPCRAFT_PROJECT_NAME
