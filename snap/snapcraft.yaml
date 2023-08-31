@@ -7,14 +7,15 @@ description: |
   for developing software with graphical user interfaces (GUIs) and
   interactive functionality.
 
-grade: devel
+grade: stable
 confinement: strict
 
 slots:
     qt-framework:
       interface: content
       read:
-        - /
+        - $SNAP
+        - $SNAP/opt
 
 parts:
   qt-sdk:
@@ -24,7 +25,7 @@ parts:
       set -eux
       craftctl default
       cd $CRAFT_PRIME/opt
-      find . -type f,l -name "*.so*" -exec bash -c "rm -f {}*" \;
+      find . -type f,l -name "*.h" -exec bash -c "rm -f {}*" \;
   command-chain:
     source: https://github.com/jardon/snapcraft-desktop-integration.git
     source-type: git
@@ -33,3 +34,6 @@ parts:
     plugin: make
     make-parameters:
       - PLATFORM_PLUG=$SNAPCRAFT_PROJECT_NAME
+    stage-packages:
+      - mime-support
+      - shared-mime-info
