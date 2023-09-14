@@ -1,6 +1,6 @@
-name: qt-framework
+name: qt-framework-5-15-core22
 base: core22
-version: bundle
+version: 5.15.10
 summary: Qt Framework
 description: |
   Qt is a cross-platform application development framework widely used
@@ -15,17 +15,17 @@ slots:
       interface: content
       read:
         - $SNAP
-        - $SNAP/opt
+        - $SNAP/usr
 
 parts:
   qt-sdk:
     plugin: nil
-    stage-snaps: [qt-framework-sdk/latest/edge]
+    stage-snaps: [qt-framework-sdk/5.15/stable]
     override-prime: |
       set -eux
       craftctl default
-      cd $CRAFT_PRIME/opt
       find . -type f,l -name "*.h" -exec bash -c "rm -f {}*" \;
+      find . -type f,l -name "*.cpp" -exec bash -c "rm -f {}*" \;
   command-chain:
     source: https://github.com/jardon/snapcraft-desktop-integration.git
     source-type: git
