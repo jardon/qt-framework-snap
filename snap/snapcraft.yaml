@@ -15,7 +15,6 @@ slots:
       interface: content
       read:
         - $SNAP
-        - $SNAP/usr
 
 parts:
   qt-sdk:
