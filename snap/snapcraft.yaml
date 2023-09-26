@@ -1,6 +1,6 @@
-name: qt-framework-5-15-core22
+name: qt-framework-6-5-core22
 base: core22
-version: 5.15.10
+version: 6.5.2
 summary: Qt Framework
 description: |
   Qt is a cross-platform application development framework widely used
@@ -15,12 +15,11 @@ slots:
       interface: content
       read:
         - $SNAP
-        - $SNAP/usr
 
 parts:
   qt-sdk:
     plugin: nil
-    stage-snaps: [qt-framework-sdk/5.15/stable]
+    stage-snaps: [qt-framework-sdk/6.5/stable]
     override-prime: |
       set -eux
       craftctl default
