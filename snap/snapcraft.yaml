@@ -1,6 +1,6 @@
 name: qt-framework-5-15-core22
 base: core22
-version: 5.15.10
+version: 5.15.12
 summary: Qt Framework
 description: |
   Qt is a cross-platform application development framework widely used
@@ -11,7 +11,7 @@ grade: stable
 confinement: strict
 
 slots:
-    $SNAPCRAFT_PROJECT_NAME:
+    qt-framework-5-15-core22:
       interface: content
       read:
         - $SNAP
