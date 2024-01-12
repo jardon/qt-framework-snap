@@ -11,7 +11,7 @@ grade: stable
 confinement: strict
 
 slots:
-    qt-framework:
+    qt-framework-6-5-core22:
       interface: content
       read:
         - $SNAP
@@ -32,7 +32,7 @@ parts:
     source-subdir: qt-framework
     plugin: make
     make-parameters:
-      - PLATFORM_PLUG=$SNAPCRAFT_PROJECT_NAME
+      - PLATFORM_PLUG=qt-framework
     stage-packages:
       - mime-support
       - shared-mime-info
