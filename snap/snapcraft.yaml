@@ -1,6 +1,6 @@
-name: qt-framework-6-5-core22
+name: qt-framework-6-6-core22
 base: core22
-version: 6.5.2
+version: 6.6.1
 summary: Qt Framework
 description: |
   Qt is a cross-platform application development framework widely used
@@ -11,7 +11,7 @@ grade: stable
 confinement: strict
 
 slots:
-    qt-framework:
+    qt-framework-6-6-core22:
       interface: content
       read:
         - $SNAP
@@ -19,7 +19,7 @@ slots:
 parts:
   qt-sdk:
     plugin: nil
-    stage-snaps: [qt-framework-sdk/6.5/stable]
+    stage-snaps: [qt-framework-sdk/6.6/stable]
     override-prime: |
       set -eux
       craftctl default
@@ -32,7 +32,7 @@ parts:
     source-subdir: qt-framework
     plugin: make
     make-parameters:
-      - PLATFORM_PLUG=$SNAPCRAFT_PROJECT_NAME
+      - PLATFORM_PLUG=qt-framework
     stage-packages:
       - mime-support
       - shared-mime-info
