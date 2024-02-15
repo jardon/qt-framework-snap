@@ -32,7 +32,7 @@ parts:
     source-subdir: qt-framework
     plugin: make
     make-parameters:
-      - PLATFORM_PLUG=qt-framework
+      - PLATFORM_PLUG=$SNAPCRAFT_PROJECT_NAME
     stage-packages:
       - mime-support
       - shared-mime-info
