@@ -1,0 +1,25 @@
+name: Remote build and release
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches:
+      - '[0-9]+.[0-9]+'
+
+jobs:
+  release:
+    name: 🚢 Release to latest/stable
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64]
+    steps:
+      - name: 🚢 Build and release for ${{ matrix.arch }}
+        uses: snapcrafters/ci/release-to-candidate@main
+        with:
+          architecture: ${{ matrix.arch }}
+          launchpad-token: ${{ secrets.LAUNCHPAD_TOKEN }}
+          store-token: ${{ secrets.STORE_TOKEN }}
+          channel: latest/stable
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
