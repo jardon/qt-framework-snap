@@ -8,18 +8,20 @@ on:
       - '[0-9]+.[0-9]+'
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
   release:
-    name: 🚢 Release to latest/stable
+    name: 🚢 Release to channel
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [amd64]
+    needs: [build]
     steps:
-      - name: 🚢 Build and release for ${{ matrix.arch }}
-        uses: snapcrafters/ci/release-to-candidate@main
-        with:
-          architecture: ${{ matrix.arch }}
-          launchpad-token: ${{ secrets.LAUNCHPAD_TOKEN }}
-          store-token: ${{ secrets.STORE_TOKEN }}
-          channel: latest/stable
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/download-artifact@v4
+      with:
+        name: snap-artifact
+        path: .
+    - uses: snapcore/action-publish@v1
+      env:
+        SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
+      with:
+        snap: snap-artifact
+        release: stable
