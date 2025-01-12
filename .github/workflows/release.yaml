@@ -19,9 +19,12 @@ jobs:
       with:
         name: snap-artifact
         path: .
+    - name: Get snap file name
+      id: snap-file-name
+      run: echo "snap-name=$(ls *.snap)" >> $GITHUB_OUTPUT
     - uses: snapcore/action-publish@v1
       env:
         SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
       with:
-        snap: snap-artifact
+        snap: ${{ steps.snap-file-name.outputs.snap-name }}
         release: stable
